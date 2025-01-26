@@ -9,7 +9,8 @@
     position: relative;
     height: 200px;
     width: 200px;
-    border: 1px solid green;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
 }
 
 .image {
@@ -18,4 +19,40 @@
     width: 100%;
     top: 0;
     left: 0;
+    padding: 10px;
+}
+
+.input-wrapper {
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.label {
+    display: block;
+    margin: 10px 0px;
+}
+
+.form-container {
+    padding: 10px;
+}
+
+.input {
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    outline: none;
+}
+
+.btn-wrapper {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.button {
+    width: 100%;
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
 }

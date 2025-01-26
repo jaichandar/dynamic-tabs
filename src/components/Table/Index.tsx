@@ -5,7 +5,6 @@ import { ProductTypes } from '../../DynamicTabs/types';
 // store
 import { useDStore } from '../../DynamicTabs/store';
 // icons
-import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 // style
 import './style.css';
@@ -47,7 +46,6 @@ const _Table = (props: TableProps) => {
                             <td>{val.category}</td>
                             <td className='actionCell'>
                                 <div className='cursor' onClick={() => handleEdit(val)}><FaRegEdit /></div>
-                                <div className='cursor'><RiDeleteBin2Fill /></div>
                             </td>
                         </tr>
                     ))
