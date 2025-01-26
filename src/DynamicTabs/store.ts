@@ -13,6 +13,7 @@ type useDynamicStore = {
     onTabClose: (id: number) => void;
     setDeactiveAllTabs: VoidFunction;
     setActiveTab: (id: number) => void;
+    onInputChanges: (key: 'title' | 'description',  value: string, product: productsTypesWithActiveTab) => void;
 }
 
 const checkAlreadyExistOrAdd = (products: productsTypesWithActiveTab[], product: ProductTypes): productsTypesWithActiveTab[] => {
@@ -31,6 +32,41 @@ const checkAlreadyExistOrAdd = (products: productsTypesWithActiveTab[], product:
     }
 }
 
+const handleInputsChanges = (key: 'title' | 'description', value: string, product: ProductTypes, tabLists: productsTypesWithActiveTab[]): productsTypesWithActiveTab[] => {
+    return tabLists.map((val) => {
+        if (val.id === product.id) {
+            return {
+                ...val, 
+                [key]: value,
+            }
+        } else return val;
+    })
+}
+
+const handleOnClose = (tabLists: productsTypesWithActiveTab[], id: number): productsTypesWithActiveTab[] => {
+    let index = tabLists.findIndex((tab) => tab.id === id);
+    let _tabLists = tabLists.filter((tab) => tab.id !== id);
+
+    if (_tabLists.length === 0) {
+        return _tabLists;  // No tabs left, return empty list
+    } else if (index < _tabLists.length) {
+        // If there's a next tab, activate it
+        _tabLists[index] = {
+            ..._tabLists[index],
+            activeTab: true,
+        };
+    } else if (index - 1 >= 0) {
+        // If no next tab, activate the previous tab
+        _tabLists[index - 1] = {
+            ..._tabLists[index - 1],
+            activeTab: true,
+        };
+    }
+
+    return _tabLists;
+};
+
+
 export const useDStore = create<useDynamicStore>((set) => ({
     products: [],
     tabLists: [],
@@ -41,7 +77,7 @@ export const useDStore = create<useDynamicStore>((set) => ({
     })),
     onTabClose: (id) => set((state) => ({
         ...state,
-        tabLists: state.tabLists.filter((val) => val.id !== id),
+        tabLists: handleOnClose(state.tabLists, id),
     })),
     setDeactiveAllTabs: () => set((state) => ({
         ...state, 
@@ -62,5 +98,9 @@ export const useDStore = create<useDynamicStore>((set) => ({
                 }
             }
         })
+    })),
+    onInputChanges: (key, value, product) => set((state) => ({
+        ...state, 
+        tabLists: handleInputsChanges(key, value, product, state.tabLists),
     }))
 }))
