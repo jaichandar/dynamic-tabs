@@ -31,10 +31,9 @@ type tabProps = {
 const Tab = (props: tabProps) => {
     const { name, id, activeTab } = props;
     const onTabClose = useDStore((state) => state.onTabClose);
-    // const onTestClose = useDStore((state) => state.onTestingClose)
     const setActiveTabs = useDStore((state) => state.setActiveTab);
 
-    const closeTabs = (e, id) => {
+    const closeTabs = (e: React.MouseEvent<HTMLDivElement>, id: number) => {
         e.stopPropagation();
         onTabClose(id)
     }
