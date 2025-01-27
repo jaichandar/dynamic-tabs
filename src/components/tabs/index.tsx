@@ -15,7 +15,7 @@ const Tabs = () => {
             </div>
             {
                 tabsList.map((tab) => (
-                    <Tab name={tab.title} id={tab.id} activeTab={tab.activeTab} />
+                    <Tab key={tab.id} name={tab.title} id={tab.id} activeTab={tab.activeTab} />
                 ))
             }
         </div>
@@ -33,12 +33,17 @@ const Tab = (props: tabProps) => {
     const onTabClose = useDStore((state) => state.onTabClose);
     const setActiveTabs = useDStore((state) => state.setActiveTab);
 
+    const closeTabs = (e: React.MouseEvent<HTMLDivElement>, id: number) => {
+        e.stopPropagation();
+        onTabClose(id)
+    }
+
     return (
         <div key={id} className={activeTab ? 'tab activeTab cursor':`tab cursor`} onClick={() => setActiveTabs(id)}>
             <div className='tab-title'>
                 <p className='mb-0'>{name}</p>
             </div>
-            <div className='tab-btn cursor' onClick={() => onTabClose(id)}>
+            <div className='tab-btn cursor' onClick={(e) => closeTabs(e, id)}>
                 <IoMdClose />
             </div>
         </div>

@@ -30,16 +30,18 @@ const _Table = (props: TableProps) => {
     return (
         <Table>
             <thead>
-                {
-                    columns.map((column) => (
-                        <th>{column.headerName}</th>
-                    ))
-                }
+                <tr>
+                    {
+                        columns.map((column, idx) => (
+                            <th key={idx}>{column.headerName}</th>
+                        ))
+                    }
+                </tr>
             </thead>
             <tbody>
                 {
                     data.map((val) => (
-                        <tr>
+                        <tr key={val.id}>
                             <td>{val.id}</td>
                             <td>{val.title}</td>
                             <td>{val.description}</td>
