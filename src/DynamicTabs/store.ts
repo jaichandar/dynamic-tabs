@@ -47,6 +47,27 @@ const handleOnClose = (tabLists: productsTypesWithActiveTab[], id: number): prod
     let index = tabLists.findIndex((tab) => tab.id === id);
     let _tabLists = tabLists.filter((tab) => tab.id !== id);
 
+    if (!tabLists[index].activeTab) {
+        return [...tabLists].filter((tab) => tab.id !== id);
+    }
+
+    if (index === 0 && tabLists[index + 1]) {
+        const _tabList = tabLists.map((val, i) => {
+            if (i === index + 1) {
+                return {
+                    ...val,
+                    activeTab: true
+                }
+            } else {
+                return {
+                    ...val,
+                    activeTab: false,
+                }
+            }
+        })
+        return _tabList.filter((tab) => tab.id !== id);
+    }
+
     const checkPreviousTab = index - 1;
     if (index === 0 && !_tabLists[checkPreviousTab]) {
         return _tabLists
