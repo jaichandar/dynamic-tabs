@@ -43,7 +43,7 @@ const DynamicTabs = () => {
                     <Spinner />
                 </div>
             }
-            <p>Dynamic Tabs</p>
+            <p className='title'>Dynamic Tabs</p>
             <Tabs />
             <Table columns={columns} data={products} />
             {isAnyActiveTabs && <Forms />}
